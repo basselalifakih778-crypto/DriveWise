@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">DriveWise</string>
+
+    <!-- Material Design Behaviors -->
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+
+    <!-- Screen Titles -->
+    <string name="admin_home">Admin Home</string>
+    <string name="client_home">Client Home</string>
+    <string name="create_post">Create Post</string>
+    <string name="post_details">Post Details</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <!-- Auth Strings -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_as">Login as</string>
+    <string name="register_as">Register as</string>
+    <string name="go_to_register">Go to Register</string>
+    <string name="go_to_login">Go to Login</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="create_account">Create account</string>
+    <string name="client">Client</string>
+    <string name="admin">Admin</string>
+
+    <!-- Post Strings -->
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="image_url">Image URL (optional)</string>
+    <string name="publish">Publish</string>
+    <string name="post_image">Post image</string>
+
+    <!-- Messages -->
+    <string name="loading">Loading…</string>
+    <string name="error_occurred">An error occurred</string>
 </resources>

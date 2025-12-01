@@ -1,12 +1,10 @@
 package com.example.drivewise.domain.model
 
-import android.provider.ContactsContract.CommonDataKinds.Email
-
 data class User(
-
-    val id: String,
-    val fullName:String,
-    val email: String,
-    val role: Role,
-
-)
+    val uid: String = "",
+    val email: String = "",
+    val role: String = "client" // Store as string for Firestore: "admin" or "client"
+) {
+    // Helper to get Role enum
+    fun getRoleEnum(): Role = Role.fromKey(role)
+}
