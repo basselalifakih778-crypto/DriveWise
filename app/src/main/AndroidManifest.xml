@@ -15,17 +15,56 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DriveWise"
         tools:targetApi="31">
+
+        <!-- Login Activity - Launcher -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.LoginActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.DriveWise">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Register Activity -->
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:theme="@style/Theme.DriveWise" />
+
+        <!-- Admin Home Activity -->
+        <activity
+            android:name=".ui.activity.AdminHomeActivity"
+            android:theme="@style/Theme.DriveWise" />
+
+        <!-- Client Home Activity -->
+        <activity
+            android:name=".ui.activity.ClientHomeActivity"
+            android:theme="@style/Theme.DriveWise" />
+
+        <!-- Posts List Activity -->
+        <activity
+            android:name=".ui.activity.PostsListActivity"
+            android:theme="@style/Theme.DriveWise" />
+
+        <!-- Post Details Activity -->
+        <activity
+            android:name=".ui.activity.PostDetailsActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.PostsListActivity" />
+
+        <!-- Create Post Activity -->
+        <activity
+            android:name=".ui.activity.CreatePostActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.PostsListActivity" />
+
+        <!-- Old MainActivity (can be removed later) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.DriveWise" />
     </application>
 
 </manifest>

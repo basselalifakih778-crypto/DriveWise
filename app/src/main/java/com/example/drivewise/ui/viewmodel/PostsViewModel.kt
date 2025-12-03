@@ -25,7 +25,7 @@ class PostsViewModel(
         }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.WhileSubscribed(5000),
             initialValue = PostsUiState.Loading
         )
 

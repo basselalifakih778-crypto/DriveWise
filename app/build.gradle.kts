@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    // alias(libs.plugins.kotlin.compose) // Disabled - using XML layouts
     alias(libs.plugins.google.services)
 }
 
@@ -36,7 +36,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
-        compose = true
+        // compose = true // Disabled - using XML layouts
         viewBinding = true
     }
     packaging {
@@ -50,12 +50,15 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+
+    // Compose dependencies - COMMENTED OUT (using XML layouts now)
+    // implementation(libs.androidx.activity.compose)
+    // implementation(platform(libs.androidx.compose.bom))
+    // implementation(libs.androidx.ui)
+    // implementation(libs.androidx.ui.graphics)
+    // implementation(libs.androidx.ui.tooling.preview)
+    // implementation(libs.androidx.material3)
+
     implementation(libs.androidx.roomdb)
 
     // Firebase BOM (manages versions for you)
@@ -71,17 +74,22 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.play.services)
 
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    // Navigation - COMPOSE COMMENTED OUT (using Intents now)
+    // implementation(libs.androidx.navigation.compose)
+    // implementation(libs.androidx.lifecycle.runtime.compose)
+    // implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Lifecycle for Activities
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.activity:activity-ktx:1.8.1")
 
     // Material Design & Icons
-    implementation(libs.androidx.material.icons.extended)
+    // implementation(libs.androidx.material.icons.extended) // Compose icons
     implementation("com.google.android.material:material:1.12.0")
 
-    // Image Loading
-    implementation(libs.coil.compose)
+    // Image Loading - Coil for Views (not Compose)
+    implementation("io.coil-kt:coil:2.5.0")
+    // implementation(libs.coil.compose) // Compose version - commented out
 
     // UI Components for XML layouts
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
@@ -94,8 +102,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    // Compose test dependencies (commented out - now using XML layouts)
+    // androidTestImplementation(platform(libs.androidx.compose.bom))
+    // androidTestImplementation(libs.androidx.ui.test.junit4)
+    // debugImplementation(libs.androidx.ui.tooling)
+    // debugImplementation(libs.androidx.ui.test.manifest)
 }
