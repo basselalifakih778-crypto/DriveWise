@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -58,6 +59,78 @@
             android:name=".ui.activity.CreatePostActivity"
             android:theme="@style/Theme.DriveWise"
             android:parentActivityName=".ui.activity.PostsListActivity" />
+
+        <!-- Manage Cars Activity -->
+        <activity
+            android:name=".ui.activity.ManageCarsActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.AdminHomeActivity" />
+
+        <!-- Add/Edit Car Activity -->
+        <activity
+            android:name=".ui.activity.AddEditCarActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.ManageCarsActivity" />
+
+        <!-- Manage Bookings Activity -->
+        <activity
+            android:name=".ui.activity.ManageBookingsActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.AdminHomeActivity" />
+
+        <!-- Customer Profiles Activity -->
+        <activity
+            android:name=".ui.activity.CustomerProfilesActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.AdminHomeActivity" />
+
+        <!-- Car Photos Activity -->
+        <activity
+            android:name=".ui.activity.CarPhotosActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.ManageBookingsActivity" />
+
+        <!-- Document Viewer Activity -->
+        <activity
+            android:name=".ui.activity.DocumentViewerActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.CustomerProfilesActivity" />
+
+        <!-- Browse Cars Activity (for clients) -->
+        <activity
+            android:name=".ui.activity.BrowseCarsActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.ClientHomeActivity" />
+
+        <!-- Car Details Activity -->
+        <activity
+            android:name=".ui.activity.CarDetailsActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.BrowseCarsActivity" />
+
+        <!-- My Bookings Activity (for clients) -->
+        <activity
+            android:name=".ui.activity.MyBookingsActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.ClientHomeActivity" />
+
+        <!-- Booking Details Activity -->
+        <activity
+            android:name=".ui.activity.BookingDetailsActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.MyBookingsActivity" />
+
+        <!-- Upload Photos Activity (for car condition photos) -->
+        <activity
+            android:name=".ui.activity.UploadPhotosActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.MyBookingsActivity" />
+
+        <!-- My Profile Activity (for clients) -->
+        <activity
+            android:name=".ui.activity.MyProfileActivity"
+            android:theme="@style/Theme.DriveWise"
+            android:parentActivityName=".ui.activity.ClientHomeActivity" />
 
         <!-- Old MainActivity (can be removed later) -->
         <activity

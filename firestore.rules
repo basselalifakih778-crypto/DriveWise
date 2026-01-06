@@ -1,0 +1,77 @@
+// Firebase Firestore Security Rules for DriveWise
+//
+// To apply these rules:
+// 1. Go to Firebase Console: https://console.firebase.google.com
+// 2. Select your project
+// 3. Go to Firestore Database -> Rules
+// 4. Replace the existing rules with these
+// 5. Click "Publish"
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // USERS COLLECTION
+    match /users/{uid} {
+      // Users can read their own profile, admins can read all profiles
+      allow read: if request.auth != null &&
+                    (request.auth.uid == uid ||
+                     get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin");
+
+      // Allow creation by the app when registering a new user
+      allow create: if request.auth != null && request.auth.uid == uid;
+
+      // Users can update their own profile, admins can update any profile
+      allow update: if request.auth != null &&
+                      (request.auth.uid == uid ||
+                       get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin");
+
+      // No one can delete user documents from client app
+      allow delete: if false;
+    }
+
+
+    // CARS COLLECTION
+    match /cars/{carId} {
+      // Anyone logged in can read cars (for browsing available cars)
+      allow read: if request.auth != null;
+
+      // Only admins can create, update, or delete cars
+      allow create: if request.auth != null &&
+                    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+
+      allow update: if request.auth != null &&
+                    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+
+      allow delete: if request.auth != null &&
+                    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    // BOOKINGS COLLECTION
+    match /bookings/{bookingId} {
+      // Users can read their own bookings, admins can read all bookings
+      allow read: if request.auth != null &&
+                    (resource.data.userId == request.auth.uid ||
+                     get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin");
+
+      // Authenticated users can create bookings
+      allow create: if request.auth != null;
+
+      // Users can update their own bookings (e.g., to cancel), admins can update all
+      allow update: if request.auth != null &&
+                      (resource.data.userId == request.auth.uid ||
+                       get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin");
+
+      // Only admins can delete bookings
+      allow delete: if request.auth != null &&
+                    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    // Everything else is denied
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+

@@ -1,0 +1,80 @@
+
+// Firebase Storage Security Rules for DriveWise
+//
+// To apply these rules:
+// 1. Go to Firebase Console: https://console.firebase.google.com
+// 2. Select your project
+// 3. Go to Storage -> Rules
+// 4. Replace the existing rules with these
+// 5. Click "Publish"
+
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null &&
+             firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to validate image file
+    function isValidImage() {
+      return request.resource.contentType.matches('image/.*') &&
+             request.resource.size < 10 * 1024 * 1024; // Max 10MB
+    }
+
+    // CAR IMAGES - Only admins can upload, anyone authenticated can read
+    match /cars/{carImage} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() && isValidImage();
+      allow delete: if isAdmin();
+    }
+
+    // USER DOCUMENTS - Users can upload their own documents, admins can read all
+    match /documents/{userId}/{document} {
+      allow read: if isAuthenticated() &&
+                     (request.auth.uid == userId || isAdmin());
+      allow write: if isAuthenticated() &&
+                      request.auth.uid == userId &&
+                      request.resource.size < 10 * 1024 * 1024; // Max 10MB
+      allow delete: if isAuthenticated() &&
+                       (request.auth.uid == userId || isAdmin());
+    }
+
+    // BOOKING PHOTOS - Users can upload for their bookings, admins can read all
+    match /bookings/{bookingId}/{photoType}/{photo} {
+      // photoType can be "pickup" or "return"
+
+      // Anyone authenticated can read (for dispute resolution)
+      allow read: if isAuthenticated();
+
+      // Users can upload photos for their bookings
+      allow write: if isAuthenticated() && isValidImage();
+
+      // Only admins can delete booking photos
+      allow delete: if isAdmin();
+    }
+
+    // PROFILE PHOTOS - Users can upload their own profile photo, anyone authenticated can read
+    match /profile/{userId}/{photo} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() &&
+                      request.auth.uid == userId &&
+                      isValidImage();
+      allow delete: if isAuthenticated() &&
+                       (request.auth.uid == userId || isAdmin());
+    }
+
+    // Default deny for everything else
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
